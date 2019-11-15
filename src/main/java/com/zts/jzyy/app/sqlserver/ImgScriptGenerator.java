@@ -5,6 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 业务影像脚本
+ */
 public class ImgScriptGenerator extends AbstractScriptGenerator {
 
     public ImgScriptGenerator() {
@@ -12,7 +15,7 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
     }
 
     private void init() {
-        this.basePath = "E:\\xzx\\YGT_DB\\IMG_COND_CONF";
+        this.basePath = "E:\\xzx\\YGT_DB";
         this.fileName = "IMG_COND_CONF.sql";
     }
 
@@ -45,7 +48,7 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
 
             sb.append(
                     "INSERT INTO OPP_IMG_BIZ_CFG(IMG_CFG_SN, BUSI_CODE, IMG_CLS, COLLECT_MUST, WATER_MARK, IMG_ORDER, REF_BUSI_TYPE) VALUES (@MAX_IMG_CFG_SN, '")
-                    .append(newBusiCode).append("', '").append(type).append("', '1', NULL, 1, '')").append("\n");
+                    .append(newBusiCode).append("', '").append(type).append("', '1', NULL, 1, '')");
 
             String subSql = "select CONDITION_VALUE from OPP_BUSI_IMG_CONDITION where "
                     + " IMG_CFG_SN IN (select IMG_CFG_SN from OPP_IMG_BIZ_CFG where BUSI_CODE IN ( ? ) and IMG_CLS IN ( ? ))";
@@ -53,11 +56,11 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
             List<Map<String, Object>> conditions = jdbcTemplate.queryForList(subSql,
                     new Object[]{oldBusiCode, type});
             if (conditions == null || conditions.size() == 0) {
-                sb.append(";");
+                sb.append(";\n");
             } else {
                 for (Map<String, Object> con : conditions) {
                     String conStr = (String) con.get("CONDITION_VALUE");
-                    sb.append(
+                    sb.append("\n").append(
                             "INSERT INTO OPP_BUSI_IMG_CONDITION(CONDITION_ID, ATOM_CODE, ATOM_PARAM, CONDITION_VALUE, IMG_CFG_SN, CONDITION_TYPE) VALUES ")
                             .append("(@MAX_CONDITION_ID, '', '', '").append(conStr).append("', @MAX_IMG_CFG_SN, '0')")
                             .append(";").append("\n");

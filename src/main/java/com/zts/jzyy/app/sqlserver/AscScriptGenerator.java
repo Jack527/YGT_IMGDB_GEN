@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 业务准入脚本
+ */
 public class AscScriptGenerator extends AbstractScriptGenerator {
 
     public AscScriptGenerator() {
@@ -13,7 +16,7 @@ public class AscScriptGenerator extends AbstractScriptGenerator {
     }
 
     private void init() {
-        this.basePath = "E:\\xzx\\YGT_DB\\OPP_BUSI_ACS_CFG";
+        this.basePath = "E:\\xzx\\YGT_DB";
         this.fileName = "OPP_BUSI_ACS_CFG.sql";
     }
 
