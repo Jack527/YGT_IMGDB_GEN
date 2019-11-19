@@ -16,7 +16,7 @@ public class AscScriptGenerator extends AbstractScriptGenerator {
     }
 
     private void init() {
-        this.basePath = "E:\\xzx\\YGT_DB";
+        this.basePath = "E:\\xzx\\YGT_DB2";
         this.fileName = "OPP_BUSI_ACS_CFG.sql";
     }
 

@@ -15,8 +15,8 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
     }
 
     private void init() {
-        this.basePath = "E:\\xzx\\YGT_DB";
-        this.fileName = "IMG_COND_CONF.sql";
+        this.basePath = "E:\\xzx\\YGT_DB2";
+        this.fileName = "OPP_BUSI_IMG_CONDITION.sql";
     }
 
     public String generate(String oldBusiCode, String newBusiCode, JdbcTemplate jdbcTemplate) {

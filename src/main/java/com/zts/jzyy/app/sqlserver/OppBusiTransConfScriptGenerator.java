@@ -8,7 +8,7 @@ public class OppBusiTransConfScriptGenerator extends AbstractScriptGenerator {
     }
 
     private void init() {
-        this.basePath = "E:\\xzx\\YGT_DB";
+        this.basePath = "E:\\xzx\\YGT_DB2";
         this.fileName = "OPP_BUSI_TRANS_CONF.sql";
         this.tableName = "OPP_BUSI_TRANS_CONF";
         this.parms = "CLASS_NAME,SEQU,DESCRIPTION,REDO,STATUS";
