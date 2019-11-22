@@ -2,6 +2,9 @@ package com.zts.jzyy.app.sqlserver;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+
 public interface ScriptGenerator {
 
     /**
@@ -16,6 +19,6 @@ public interface ScriptGenerator {
     /**
      * 生成各业务脚本方法
      */
-    void generateScript();
+    void generateScript() throws FileNotFoundException, UnsupportedEncodingException;
 
 }

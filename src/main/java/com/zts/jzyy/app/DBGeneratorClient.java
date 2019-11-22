@@ -16,7 +16,7 @@ public class DBGeneratorClient {
         String[] className = new String[]{"com.zts.jzyy.app.sqlserver.AscScriptGenerator","com.zts.jzyy.app.sqlserver.ImgScriptGenerator",
        "com.zts.jzyy.app.sqlserver.OppProcPostCfgScriptGenerator","com.zts.jzyy.app.sqlserver.OppBusiTransConfScriptGenerator" ,"com.zts.jzyy.app.sqlserver.OppBusiCommParamScriptGenerator",
         "com.zts.jzyy.app.sqlserver.OppBusiDefScriptGenerator","com.zts.jzyy.app.sqlserver.OppPreSaveGroupsScriptGenerator",
-                "com.zts.jzyy.app.sqlserver.OppPreSaveFieldsScriptGenerator","com.zts.jzyy.app.sqlserver.OppPreSaveModulesScriptGenerator"};
+                "com.zts.jzyy.app.sqlserver.OppPreSaveFieldsScriptGenerator","com.zts.jzyy.app.sqlserver.OppPreSaveModulesScriptGenerator","com.zts.jzyy.app.sqlserver.OppProcDpcCfg","com.zts.jzyy.app.sqlserver.UpmMenu"};
         for (String s : className) {
             Class<?> clazz = ClassLoader.getSystemClassLoader().loadClass(s);
             Method generateScript = clazz.getMethod("generateScript");

@@ -9,11 +9,9 @@ public class OppPreSaveFieldsScriptGenerator extends PerSaveScriptGenerator{
 
     private void init() {
         this.basePath = "E:\\xzx\\YGT_DB2";
-        this.fileName = "OPP_PRE_SAVE_FIELDS.sql";
+        this.fileName = "08.OPP_PRE_SAVE_FIELDS.sql";
         this.tableName = "OPP_PRE_SAVE_FIELDS";
-        this.parms = "BUSI_CODE,FIELD_ID,FIELD_TITLE,FIELD_TYPE,FIELD_DICT,FIELD_REQ," +
-                "FIELD_COLS,FIELD_REQUIRED,FIELD_PREC,FIELD_WIDTH,FIELD_SEQ,FIELD_GRP,VALID_TYPE," +
-                "PLACE_HOLDER,DEFAULT_VALUE";
+        this.parms = "BUSI_CODE,USER_TYPE,GROUP_ID,MODULE_ID,FIELD_ID,FIELD_TITLE,FIELD_REQUIRED,FIELD_CONTROL,FIELD_DICT_FILTER,DEFAULT_VALUE,FIELD_SEQ,PLACE_HOLDER,BUSI_PLAT";
         this.paramList = Arrays.asList(parms.split(","));
     }
 }

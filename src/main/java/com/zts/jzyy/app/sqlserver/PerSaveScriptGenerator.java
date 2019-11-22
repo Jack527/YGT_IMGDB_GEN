@@ -16,7 +16,7 @@ public class PerSaveScriptGenerator extends AbstractScriptGenerator {
         sb.append("DELETE FROM ").append(tableName).append(" WHERE BUSI_CODE='").append(newBusiCode).append("'").append("\n");
         if (!CollectionUtils.isEmpty(queryList)) {
             for (Map<String, Object> resultMap : queryList) {
-                sb.append("INSERT INTO (").append(this.parms).append(") VALUES (");
+                sb.append("INSERT INTO ").append (this.tableName).append(" (").append(this.parms).append(") VALUES (");
                 for (String s : paramList) {
                     Object result = resultMap.get(s);
                     if (result instanceof String) {
@@ -24,7 +24,7 @@ public class PerSaveScriptGenerator extends AbstractScriptGenerator {
                     } else if (result instanceof Integer) {
                         sb.append(result).append(",");
                     } else if (null == result) {
-                        sb.append("null").append(",");
+                        sb.append("NULL").append(",");
                     }
                 }
                 String sa = sb.substring(0, sb.length() - 1);

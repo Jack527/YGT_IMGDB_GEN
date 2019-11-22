@@ -16,7 +16,7 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
 
     private void init() {
         this.basePath = "E:\\xzx\\YGT_DB2";
-        this.fileName = "OPP_BUSI_IMG_CONDITION.sql";
+        this.fileName = "14.OPP_IMG_BIZ_CFG.sql";
     }
 
     public String generate(String oldBusiCode, String newBusiCode, JdbcTemplate jdbcTemplate) {
@@ -26,7 +26,7 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
 
         StringBuffer sb = new StringBuffer();
         sb.append("DELETE FROM OPP_BUSI_IMG_CONDITION WHERE IMG_CFG_SN IN (SELECT IMG_CFG_SN FROM OPP_IMG_BIZ_CFG WHERE BUSI_CODE='").append(newBusiCode).append("')\n");
-        sb.append("DELETE FROM OPP_IMG_BIZ_CFG WHERE BUSI_CODE='").append(newBusiCode).append("';\n");
+        sb.append("DELETE FROM OPP_IMG_BIZ_CFG WHERE BUSI_CODE='").append(newBusiCode).append("';\n\n");
         for (Map<String, Object> map : imgCls) {
             String type = (String) map.get("IMG_CLS");
 
@@ -56,19 +56,24 @@ public class ImgScriptGenerator extends AbstractScriptGenerator {
             List<Map<String, Object>> conditions = jdbcTemplate.queryForList(subSql,
                     new Object[]{oldBusiCode, type});
             if (conditions == null || conditions.size() == 0) {
-                sb.append(";\n");
+                sb.append("\nGO\n");
             } else {
+                int size = 0;
                 for (Map<String, Object> con : conditions) {
+                    size++;
                     String conStr = (String) con.get("CONDITION_VALUE");
                     sb.append("\n").append(
                             "INSERT INTO OPP_BUSI_IMG_CONDITION(CONDITION_ID, ATOM_CODE, ATOM_PARAM, CONDITION_VALUE, IMG_CFG_SN, CONDITION_TYPE) VALUES ")
-                            .append("(@MAX_CONDITION_ID, '', '', '").append(conStr).append("', @MAX_IMG_CFG_SN, '0')")
-                            .append(";").append("\n");
+                            .append("(@MAX_CONDITION_ID, '', '', '").append(conStr).append("', @MAX_IMG_CFG_SN, '0')");
+                    if (size < conditions.size()) {
+                        sb.append("INSERT INTO SEQ_BUSI_IMG_CONDITION (SEQVAL) VALUES ('A')").append("\n");
+                        sb.append("SELECT @MAX_CONDITION_ID = MAX(SEQID) FROM SEQ_BUSI_IMG_CONDITION ").append("\n");
+                        sb.append("DELETE FROM SEQ_BUSI_IMG_CONDITION");
+                    }
                 }
+                sb.append("\nGO\n\n");
             }
         }
-        sb.append("GO\n");
-
         return sb.toString();
 
     }

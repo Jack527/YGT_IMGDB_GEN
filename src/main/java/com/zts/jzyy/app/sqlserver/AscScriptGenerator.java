@@ -1,6 +1,7 @@
 package com.zts.jzyy.app.sqlserver;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,7 +18,7 @@ public class AscScriptGenerator extends AbstractScriptGenerator {
 
     private void init() {
         this.basePath = "E:\\xzx\\YGT_DB2";
-        this.fileName = "OPP_BUSI_ACS_CFG.sql";
+        this.fileName = "04.OPP_BUSI_ACS_CFG.sql";
     }
 
     public String generate(String oldBusiCode, String newBusiCode, JdbcTemplate template) {
@@ -26,6 +27,9 @@ public class AscScriptGenerator extends AbstractScriptGenerator {
         List<Map<String, Object>> oldResult = template.queryForList(sql);
 
         StringBuffer sb = new StringBuffer();
+        if (CollectionUtils.isEmpty(oldResult)) {
+            return "";
+        }
         sb.append("DELETE FROM OPP_BUSI_ACS_CFG WHERE BUSI_CODE='").append(newBusiCode).append("';\n");
         for (Map<String, Object> map : oldResult) {
             String acsType = map.get("ACS_TYPE") == null ? "" : (String) map.get("ACS_TYPE"),
@@ -50,8 +54,8 @@ public class AscScriptGenerator extends AbstractScriptGenerator {
                     .append(acsType).append("','").append(newBusiCode).append("','").append(chkCond).append("',").append(conId)
                     .append(",'").append(resTrictType).append("',").append(menuId).append(",'").append(menuPara).append("','")
                     .append(handleTip).append("','").append(upTimeStr).append("','").append(busiScope).append("')").append(";\n");
+            sb.append("GO\n");
         }
-        sb.append("GO\n");
         return sb.toString();
     }
 }
